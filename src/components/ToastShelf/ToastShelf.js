@@ -3,14 +3,19 @@ import React from 'react';
 import Toast from '../Toast';
 import styles from './ToastShelf.module.css';
 
-function ToastShelf({toasts, onRemove}) {
+import {ToastContext} from '../ToastProvider/ToastProvider';
+
+function ToastShelf() {
+
+  const {toasts, setToasts} = React.useContext(ToastContext);
+
 
   const handleToastRemoval = (id) => {
     const newToasts = toasts.filter((toast) => {
       return toast.id !== id;
     })
 
-    onRemove(newToasts);
+    setToasts(newToasts);
   }
 
   return (
