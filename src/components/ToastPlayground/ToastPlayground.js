@@ -4,24 +4,18 @@ import Button from '../Button';
 
 import styles from './ToastPlayground.module.css';
 
-import Toast from '../Toast/Toast';
+import {ToastContext} from '../ToastProvider/ToastProvider';
 
 import ToastShelf from '../ToastShelf/ToastShelf'
 
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
-
-const TOAST_EXAMPLE = {
-  message: 'I am just an example of a toast',
-  variant: VARIANT_OPTIONS[0], 
-  id: crypto.randomUUID(),
-}
 
 function ToastPlayground() {
 
   const [message, setMessage] = React.useState('');
   const [variant, setVariant] = React.useState(VARIANT_OPTIONS[0]);
 
-  const [toasts, setToasts] = React.useState([TOAST_EXAMPLE]);
+  const {toasts, setToasts} = React.useContext(ToastContext);
 
   const handlePopToast = () => {
     const newToast = {
@@ -43,7 +37,7 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      <ToastShelf toasts={toasts} onRemove={setToasts}/>
+      <ToastShelf/>
 
       <form 
         onSubmit={(event)=>{
