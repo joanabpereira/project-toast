@@ -17,6 +17,20 @@ function ToastPlayground() {
 
   const {toasts, setToasts} = React.useContext(ToastContext);
 
+  React.useEffect(()=>{
+
+    function handleEscKey(event){
+      if(event.code === 'Escape')
+        setToasts([]);
+    }
+
+    window.addEventListener('keydown', handleEscKey);
+
+    return () => {
+      window.removeEventListener('keydown', handleEscKey);
+    };
+  }, []);
+
   const handlePopToast = () => {
     const newToast = {
       message,
