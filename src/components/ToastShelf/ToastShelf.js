@@ -19,7 +19,11 @@ function ToastShelf() {
   }
 
   return (
-    <ol className={styles.wrapper}>
+    <ol 
+      className={styles.wrapper}
+      role="region"
+      aria-live="polite"
+    >
       {toasts.map(({message, variant, id}) => (
         <li className={styles.toastWrapper} key={id}>
           <Toast id={id} variant={variant} onDelete={handleToastRemoval}>{message}</Toast>
