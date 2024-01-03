@@ -24,6 +24,10 @@ function ToastPlayground() {
     });
 
   const handlePopToast = () => {
+    if(message === ''){
+      return;
+    }
+    
     const newToast = {
       message,
       variant: variant,
