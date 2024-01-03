@@ -7,6 +7,7 @@ import styles from './ToastPlayground.module.css';
 import {ToastContext} from '../ToastProvider/ToastProvider';
 
 import ToastShelf from '../ToastShelf/ToastShelf'
+import useEscapeKey from '../../hooks/useEscapeKey';
 
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
@@ -17,21 +18,16 @@ function ToastPlayground() {
 
   const {toasts, setToasts} = React.useContext(ToastContext);
 
-  React.useEffect(()=>{
-
-    function handleEscKey(event){
-      if(event.code === 'Escape')
-        setToasts([]);
-    }
-
-    window.addEventListener('keydown', handleEscKey);
-
-    return () => {
-      window.removeEventListener('keydown', handleEscKey);
-    };
-  }, []);
+  useEscapeKey(
+    () => {
+      setToasts([]);
+    });
 
   const handlePopToast = () => {
+    if(message === ''){
+      return;
+    }
+    
     const newToast = {
       message,
       variant: variant,
